@@ -9,55 +9,60 @@ import {
   Image,
 } from 'react-native';
 
+var counter = [0, 0, 0, 0, 0];  //array for storing count variables ( order: queen, rook, knight, bishop, pawn)
+
 export default function App() {
-  const [peiceName, setPeiceName] = useState("N/A");
   return (
     <SafeAreaView SafeAreaView style={styles.container}>
       <View style={styles.result}>
-        <Text style={styles.resultText}>You have chosen: {peiceName} </Text>
+        <Text style={styles.resultText}>You have chosen: </Text>
       </View>
       <View style={styles.buttons}>
         <View style={styles.buttonColumn}>
-          <TouchableOpacity style={styles.peiceButton} onPress={() => setPeiceName("Queen")}>
-            <Image
-              source={require("./assets/peices/queen.png")}
-              style={styles.peiceIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.peiceButton} onPress={() => setPeiceName("Rook")}>
-            <Image
-              source={require("./assets/peices/rook.png")}
-              style={styles.peiceIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.peiceButton} onPress={() => setPeiceName("Knight")}>
-            <Image
-              source={require("./assets/peices/knight.png")}
-              style={styles.peiceIcon}
-            />
-          </TouchableOpacity>
+          <CalcButton count="0" icon={require("./assets/peices/queen.png")} />
+          <CalcButton count="1" icon={require("./assets/peices/rook.png")} />
+          <CalcButton count="2" icon={require("./assets/peices/knight.png")} />
         </View>
         <View style={styles.buttonColumn}>
-          <TouchableOpacity style={styles.resetButton} onPress={() => setPeiceName("Reset")}>
+          <TouchableOpacity style={styles.resetButton}>
             <Text style={styles.resetButtonText}>Reset</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.peiceButton} onPress={() => setPeiceName("Bishop")}>
-            <Image
-              source={require("./assets/peices/bishop.png")}
-              style={styles.peiceIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.peiceButton} onPress={() => setPeiceName("Pawn")}>
-            <Image
-              source={require("./assets/peices/pawn.png")}
-              style={styles.peiceIcon}
-            />
-          </TouchableOpacity>
+          <CalcButton count="3" icon={require("./assets/peices/bishop.png")} />
+          <CalcButton count="4" icon={require("./assets/peices/pawn.png")} />
         </View>
       </View>
       <StatusBar style="auto" />
     </SafeAreaView >
   );
+}
+
+function CalcButton(props) {
+  return (
+    <TouchableOpacity
+      style={styles.peiceButton}
+      onPressOut={() => peiceInc(props.count)}
+    >
+      <Image
+        source={props.icon}
+        style={styles.peiceIcon}
+      />
+    </TouchableOpacity>
+  )
+}
+
+function peiceInc(props) {  //increments peice counter
+  switch (props.count) {
+    case "0":   //queen
+      counter[0]++;
+    case "1":   //rook
+      counter[1]++;
+    case "2":   //knight
+      counter[2]++;
+    case "3":    //bishop
+      counter[3]++;
+    case "4":   //pawn
+      counter[3]++;
+  }
 }
 
 const styles = StyleSheet.create({
