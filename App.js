@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,13 +9,11 @@ import {
   Image,
 } from 'react-native';
 
-var counter = [0, 0, 0, 0, 0];  //array for storing count variables ( order: queen, rook, knight, bishop, pawn)
-
-export default function App() {
+export default function app() {
   return (
     <SafeAreaView SafeAreaView style={styles.container}>
       <View style={styles.result}>
-        <Text style={styles.resultText}>You have chosen: </Text>
+        <Text style={styles.resultText}>Your probability of winning is: </Text>
       </View>
       <View style={styles.buttons}>
         <View style={styles.buttonColumn}>
@@ -37,32 +35,17 @@ export default function App() {
 }
 
 function CalcButton(props) {
+  const [peiceCounter, counterIncrement] = useState(0);
+
   return (
-    <TouchableOpacity
-      style={styles.peiceButton}
-      onPressOut={() => peiceInc(props.count)}
-    >
+    <TouchableOpacity style={styles.peiceButton} onPress={() => counterIncrement(peiceCounter + 1)}>
       <Image
         source={props.icon}
         style={styles.peiceIcon}
       />
-    </TouchableOpacity>
+      <Text style={styles.counterText}>{peiceCounter}</Text>
+    </TouchableOpacity >
   )
-}
-
-function peiceInc(props) {  //increments peice counter
-  switch (props.count) {
-    case "0":   //queen
-      counter[0]++;
-    case "1":   //rook
-      counter[1]++;
-    case "2":   //knight
-      counter[2]++;
-    case "3":    //bishop
-      counter[3]++;
-    case "4":   //pawn
-      counter[3]++;
-  }
 }
 
 const styles = StyleSheet.create({
@@ -111,4 +94,7 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
   },
+  counterText: {
+    fontSize: 25,
+  }
 });
