@@ -17,16 +17,16 @@ export default function app() {
       </View>
       <View style={styles.buttons}>
         <View style={styles.buttonColumn}>
-          <CalcButton count="0" icon={require("./assets/peices/queen.png")} />
-          <CalcButton count="1" icon={require("./assets/peices/rook.png")} />
-          <CalcButton count="2" icon={require("./assets/peices/knight.png")} />
+          <CalcButton icon={require("./assets/peices/queen.png")} />
+          <CalcButton icon={require("./assets/peices/rook.png")} />
+          <CalcButton icon={require("./assets/peices/knight.png")} />
         </View>
         <View style={styles.buttonColumn}>
-          <TouchableOpacity style={styles.resetButton}>
+          <TouchableOpacity style={styles.resetButton} onPress={() => { /*set CalcButton component counter to 1*/ }}>
             <Text style={styles.resetButtonText}>Reset</Text>
           </TouchableOpacity>
-          <CalcButton count="3" icon={require("./assets/peices/bishop.png")} />
-          <CalcButton count="4" icon={require("./assets/peices/pawn.png")} />
+          <CalcButton icon={require("./assets/peices/bishop.png")} />
+          <CalcButton icon={require("./assets/peices/pawn.png")} />
         </View>
       </View>
       <StatusBar style="auto" />
