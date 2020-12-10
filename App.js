@@ -51,26 +51,19 @@ export default function app() {   //this function handles all the button logic, 
 
   return (
     <SafeAreaView SafeAreaView style={styles.container}>
-      <Modal visible={modalOpen}>
-        <View style={styles.modalContent}>
-          <AntDesign
-            name='close'
-            size={24}
-            onPress={() => setModalOpen(false)}
-            backgroundColor='white'
-          />
-          <Text>Hello from the modal!!</Text>
-        </View>
+      <Modal visible={modalOpen} animationType="slide" transparent={true}>
+        <ModalContent modalVis={setModalOpen} />
       </Modal>
       <View style={styles.result}>
-        <AntDesign
-          name='infocirlce'
-          size={24}
-          onPress={() => setModalOpen(true)}
-          backgroundColor='white'
-        />
-        <Text style={styles.text}>Your probability of winning is: </Text>
-        <Text style={styles.outputText}>{probability}%</Text>
+        <View style={styles.modalButtonContainer}>
+          <TouchableOpacity onPress={() => setModalOpen(true)} style={styles.modalButton}>
+            <AntDesign name="questioncircleo" size={44} color="black" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.outputTextContainer}>
+          <Text style={styles.text}>Your probability of winning is: </Text>
+          <Text style={styles.outputText}>{probability}%</Text>
+        </View>
       </View>
       <View style={styles.buttons}>
         <View style={styles.buttonColumn}>
@@ -103,16 +96,33 @@ function CalcButton(props) {    //this function is just for the peice buttons (i
   )
 }
 
+function ModalContent(props) {    //this function handles the contents of our modal component
+  return (
+    <View style={styles.modalContent}>
+      <View style={styles.modalHeader}>
+        <Text style={styles.modalTitle}>Welcome To ChessCalc!</Text>
+        <TouchableOpacity onPress={() => props.modalVis(false)}>
+          <AntDesign name="closecircleo" size={44} color="black" />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.modalText}>ChessCalc can be used to calculate the probability of a player winning a game of chess based off the ammount of peices of each type they have left. The chances are based of the assumption that they are playing against a standard chess board on the other side.</Text>
+      <Text style={styles.modalText}>To use the app tap any of the red 'peice buttons' to add a peice. For example if you have 2 rooks tap the rook button twice. Your win probability will then be output in the white box. When you want to try again press the green button to reset your peices.</Text>
+      <Text style={styles.modalText}>The maths is done using the standard valuations in chess. Here each peice is given a value:</Text>
+      <Text style={styles.modalText}>Pawn = 1, Knight = 3, Bishop = 3, Rook = 5, Queen = 9</Text>
+      <Text style={styles.modalText}>When these scores are added up we are given a number which can be compared against the number of a normal chess board (39) to give us our probability of winning.For example we would need 39 pawns to have a 50% chance of winning against a standard chess board.</Text>
+      <Text style={styles.modalText}>It should be noted that these probability scores are very much an estimate as they do not take into account other inportant factors like peice position and a players skill. They also work on the assumption that the other player is playing with standard peices and has not lost any peices.</Text>
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
   },
   result: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: "center",
-    justifyContent: "center",
     borderWidth: 1,
     borderColor: 'black',
   },
@@ -150,7 +160,38 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   modalContent: {
-    display: 'flex',
-
-  }
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: 'black',
+    padding: 10,
+    margin: 30,
+  },
+  modalButton: {
+    marginRight: 10,
+    marginTop: 30,
+  },
+  modalButtonContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  outputTextContainer: {
+    flex: 2,
+    backgroundColor: 'white',
+    alignItems: "center",
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: "space-between",
+  },
+  modalTitle: {
+    fontSize: 25,
+    alignSelf: 'center',
+    textDecorationLine: 'underline',
+  },
+  modalText: {
+    fontSize: 15,
+    margin: 2,
+  },
 });

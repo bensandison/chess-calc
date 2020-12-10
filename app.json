@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#008080"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,14 +21,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "This is a calculator where the user inputs which chess peices they have and are given the probability of them winning against standard peices",
+    "description": "This is a calculator where the user inputs which chess peices they have and are given the probability of them winning against standard peices.",
     "githubUrl": "https://github.com/bensandison/chess-calc"
   }
 }
